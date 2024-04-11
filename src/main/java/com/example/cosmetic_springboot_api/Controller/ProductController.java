@@ -2,6 +2,7 @@ package com.example.cosmetic_springboot_api.Controller;
 
 import com.example.cosmetic_springboot_api.Dto.ProductDto;
 import com.example.cosmetic_springboot_api.Response.ProductResponse;
+import com.example.cosmetic_springboot_api.Service.ICategoryService;
 import com.example.cosmetic_springboot_api.Service.IImageService;
 import com.example.cosmetic_springboot_api.Service.IProductService;
 import jakarta.validation.Valid;
@@ -26,6 +27,12 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> getAllProduct(){
         return ResponseEntity.ok(productService.getAllProduct());
     }
+    @GetMapping("/{categoryId}")
+    public ResponseEntity<List<ProductResponse>> getAllProductByCategory(@PathVariable int categoryId){
+        return ResponseEntity.ok(productService.getAllProductByCategory(categoryId));
+
+    }
+
     @PostMapping("")
     public ResponseEntity<ProductResponse> addProduct(@Valid @RequestBody ProductDto productDto, BindingResult bindingResult){
         if(bindingResult.hasErrors()){

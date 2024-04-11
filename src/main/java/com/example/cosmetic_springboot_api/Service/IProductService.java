@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface IProductService {
     List<ProductResponse> getAllProduct();
+    List<ProductResponse> getAllProductByCategory(int categoryId);
     ProductResponse addProduct(ProductDto productDto);
     ProductResponse updateProduct(int id, ProductDto productDto);
     void deleteProduct(int id);

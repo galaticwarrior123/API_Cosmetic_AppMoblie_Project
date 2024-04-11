@@ -37,6 +37,17 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    public List<ProductResponse> getAllProductByCategory(int categoryId) {
+        return productRepository.findAllByCategoryId(categoryId)
+                .stream().map(product -> {
+                    ProductResponse productResponse = modelMapper.map(product, ProductResponse.class);
+                    productResponse.setImages(imageRepository.findAllURLByProduct(product.getId()));
+                    return productResponse;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public ProductResponse addProduct(ProductDto productDto) {
         // Lưu sản phẩm thêm vào bảng product và ảnh của sản phẩm đã thêm vào bảng image
         Product product = new Product();
