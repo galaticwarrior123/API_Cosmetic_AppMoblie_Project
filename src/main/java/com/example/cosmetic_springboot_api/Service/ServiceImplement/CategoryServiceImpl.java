@@ -26,7 +26,10 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public Category updateCategory(int id, Category category) {
-        return null;
+        Category updateCategory = categoryRepository.findById(id).get();
+        updateCategory.setName(category.getName());
+        categoryRepository.save(updateCategory);
+        return updateCategory;
     }
 
     @Override
@@ -41,6 +44,6 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public void deleteCategory(int id) {
-
+        categoryRepository.deleteById(id);
     }
 }
