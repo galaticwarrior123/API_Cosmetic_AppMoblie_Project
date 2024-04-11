@@ -24,7 +24,7 @@ public class CategoryController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Category> addCategory(@Valid @RequestBody CategoryDto categoryDto, BindingResult bindingResult){
+    public ResponseEntity<CategoryResponse> addCategory(@Valid @RequestBody CategoryDto categoryDto, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return ResponseEntity.badRequest().build();
         }

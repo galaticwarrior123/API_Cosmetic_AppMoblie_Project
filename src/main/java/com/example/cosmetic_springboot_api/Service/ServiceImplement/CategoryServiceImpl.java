@@ -33,13 +33,11 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public Category addCategory(CategoryDto categoryDto) {
-        modelMapper.typeMap(CategoryDto.class, Category.class)
-                .addMappings(mapper -> mapper.skip(Category::setId));
+    public CategoryResponse addCategory(CategoryDto categoryDto) {
         Category category = new Category();
-        modelMapper.map(categoryDto,category);
+        modelMapper.map(categoryDto, category);
         categoryRepository.save(category);
-        return modelMapper.map(category, Category.class);
+        return modelMapper.map(category, CategoryResponse.class);
     }
 
     @Override
