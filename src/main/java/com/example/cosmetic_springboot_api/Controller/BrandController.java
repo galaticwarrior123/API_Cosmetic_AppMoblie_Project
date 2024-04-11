@@ -32,8 +32,8 @@ public class BrandController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BrandResponse> updateBrand(@PathVariable int id, @RequestBody BrandResponse brandResponse){
-        return ResponseEntity.ok(brandService.updateBrand(id, brandResponse));
+    public ResponseEntity<BrandResponse> updateBrand(@PathVariable int id, @RequestBody BrandDto brandDto){
+        return ResponseEntity.ok(brandService.updateBrand(id, brandDto));
     }
 
     @DeleteMapping("/{id}")

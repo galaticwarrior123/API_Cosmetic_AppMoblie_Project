@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IBrandService {
     List<BrandResponse> getAllBrand();
-    BrandResponse updateBrand(int id, BrandResponse brandResponse);
+    BrandResponse updateBrand(int id, BrandDto brandDto);
     BrandResponse addBrand(BrandDto brandDto);
     void deleteBrand(int id);
 }

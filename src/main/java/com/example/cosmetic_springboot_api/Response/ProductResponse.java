@@ -18,7 +18,7 @@ public class ProductResponse {
     private String description;
     private String price;
     private int stock;
-    private List<Image> images;
+    private List<String> images;
     private Category category;
     private Brand brand;
 }

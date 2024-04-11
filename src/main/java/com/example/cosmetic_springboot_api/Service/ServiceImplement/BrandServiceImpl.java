@@ -26,9 +26,9 @@ public class BrandServiceImpl implements IBrandService {
     }
 
     @Override
-    public BrandResponse updateBrand(int id, BrandResponse brandResponse) {
+    public BrandResponse updateBrand(int id, BrandDto brandDto) {
         Brand updateBrand = brandRepository.findById(id).get();
-        updateBrand.setName(brandResponse.getName());
+        updateBrand.setName(brandDto.getName());
         brandRepository.save(updateBrand);
         return modelMapper.map(updateBrand, BrandResponse.class);
     }

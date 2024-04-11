@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ImageRepository extends JpaRepository<Image, Integer> {
-    @Query("SELECT i FROM Image i WHERE i.product.id = ?1")
-    List<Image> findAllByProduct(int productId);
+
+    @Query("SELECT i.url FROM Image i WHERE i.product.id = ?1")
+    List<String> findAllURLByProduct(int productId);
 }

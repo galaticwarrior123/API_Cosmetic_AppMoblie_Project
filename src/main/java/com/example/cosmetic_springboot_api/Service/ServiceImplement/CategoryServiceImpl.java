@@ -25,9 +25,9 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public Category updateCategory(int id, Category category) {
+    public Category updateCategory(int id, CategoryDto categoryDto) {
         Category updateCategory = categoryRepository.findById(id).get();
-        updateCategory.setName(category.getName());
+        updateCategory.setName(categoryDto.getName());
         categoryRepository.save(updateCategory);
         return updateCategory;
     }

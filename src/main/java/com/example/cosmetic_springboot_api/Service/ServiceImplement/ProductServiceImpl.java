@@ -1,8 +1,11 @@
 package com.example.cosmetic_springboot_api.Service.ServiceImplement;
 
 import com.example.cosmetic_springboot_api.Dto.ProductDto;
+import com.example.cosmetic_springboot_api.Entity.Category;
 import com.example.cosmetic_springboot_api.Entity.Image;
 import com.example.cosmetic_springboot_api.Entity.Product;
+import com.example.cosmetic_springboot_api.Repository.BrandRepository;
+import com.example.cosmetic_springboot_api.Repository.CategoryRepository;
 import com.example.cosmetic_springboot_api.Repository.ImageRepository;
 import com.example.cosmetic_springboot_api.Repository.ProductRepository;
 import com.example.cosmetic_springboot_api.Response.ProductResponse;
@@ -20,12 +23,14 @@ public class ProductServiceImpl implements IProductService {
     private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
     private final ImageRepository imageRepository;
+    private final CategoryRepository categoryRepository;
+    private final BrandRepository brandRepository;
     @Override
     public List<ProductResponse> getAllProduct() {
         return productRepository.findAll()
                 .stream().map(product -> {
                     ProductResponse productResponse = modelMapper.map(product, ProductResponse.class);
-                    productResponse.setImages(imageRepository.findAllByProduct(product.getId()));
+                    productResponse.setImages(imageRepository.findAllURLByProduct(product.getId()));
                     return productResponse;
                 })
                 .collect(Collectors.toList());
@@ -35,29 +40,51 @@ public class ProductServiceImpl implements IProductService {
     public ProductResponse addProduct(ProductDto productDto) {
         // Lưu sản phẩm thêm vào bảng product và ảnh của sản phẩm đã thêm vào bảng image
         Product product = new Product();
-        modelMapper.map(productDto, product);
+        product.setName(productDto.getName());
+        product.setPrice(productDto.getPrice());
+        product.setBrand(brandRepository.findById(productDto.getBrandId()).orElse(null));
+        product.setCategory(categoryRepository.findById(productDto.getCategoryId()).orElse(null));
+        product.setDescription(productDto.getDescription());
+        product.setStatus(true);
+        product.setStock(productDto.getStock());
         productRepository.save(product);
-        List<Image> images = productDto.getImages().stream().map(imageDto -> {
-            Image image = new Image();
-            image.setUrl(imageDto);
-            image.setProduct(product);
-            return image;
-        }).collect(Collectors.toList());
+        List<Image> images = productDto.getImages().stream().map(imageUrl -> {
+                    Image image = new Image();
+                    image.setUrl(imageUrl);
+                    image.setProduct(product);
+                    return image;
+                }).collect(Collectors.toList());
         imageRepository.saveAll(images);
         ProductResponse productResponse = modelMapper.map(product, ProductResponse.class);
-        productResponse.setImages(images);
+        productResponse.setImages(images.stream().map(Image::getUrl).collect(Collectors.toList()));
         return productResponse;
-
-
     }
 
     @Override
-    public Product updateProduct(int id, Product product) {
-        return null;
+    public ProductResponse updateProduct(int id, ProductDto productDto) {
+        Product updateProduct = productRepository.findById(id).get();
+        updateProduct.setName(productDto.getName());
+        updateProduct.setPrice(productDto.getPrice());
+        updateProduct.setBrand(brandRepository.findById(productDto.getBrandId()).orElse(null));
+        updateProduct.setCategory(categoryRepository.findById(productDto.getCategoryId()).orElse(null));
+        updateProduct.setDescription(productDto.getDescription());
+        updateProduct.setStatus(true);
+        updateProduct.setStock(productDto.getStock());
+        productRepository.save(updateProduct);
+        List<Image> images = productDto.getImages().stream().map(imageUrl -> {
+            Image image = new Image();
+            image.setUrl(imageUrl);
+            image.setProduct(updateProduct);
+            return image;
+        }).collect(Collectors.toList());
+        imageRepository.saveAll(images);
+        ProductResponse productResponse = modelMapper.map(updateProduct, ProductResponse.class);
+        productResponse.setImages(images.stream().map(Image::getUrl).collect(Collectors.toList()));
+        return productResponse;
     }
 
     @Override
     public void deleteProduct(int id) {
-
+        productRepository.deleteById(id);
     }
 }

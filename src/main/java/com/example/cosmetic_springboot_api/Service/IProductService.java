@@ -9,6 +9,6 @@ import java.util.List;
 public interface IProductService {
     List<ProductResponse> getAllProduct();
     ProductResponse addProduct(ProductDto productDto);
-    Product updateProduct(int id, Product product);
+    ProductResponse updateProduct(int id, ProductDto productDto);
     void deleteProduct(int id);
 }
