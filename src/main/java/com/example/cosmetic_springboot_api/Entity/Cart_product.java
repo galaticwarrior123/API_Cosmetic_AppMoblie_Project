@@ -9,21 +9,25 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "image")
-@Builder
 @Entity
+@Table(name = "cart_product")
+@Builder
 @SequenceGenerator(
         initialValue = 1,
-        name = "image_sequence",
-        sequenceName = "image_sequence",
+        name = "cart_product_sequence",
+        sequenceName = "cart_product_sequence",
         allocationSize = 1
 )
-public class Image {
+public class Cart_product {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "image_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_product_sequence")
     private Integer id;
-    private String url;
 
     @ManyToOne
     private Product product;
+
+    private Integer quantity;
+
+    @ManyToOne
+    private Cart cart;
 }

@@ -14,14 +14,20 @@ import java.util.List;
 @Table(name = "product")
 @Builder
 @Entity
+@SequenceGenerator(
+        initialValue = 1,
+        name = "product_sequence",
+        sequenceName = "product_sequence",
+        allocationSize = 1
+)
 public class Product{
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence")
+    private Integer id;
     private String name;
     private String description;
-    private int price;
-    private int stock;
+    private Integer price;
+    private Integer stock;
     private boolean status;
 
     @OneToOne

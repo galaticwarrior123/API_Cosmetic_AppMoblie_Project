@@ -1,9 +1,6 @@
 package com.example.cosmetic_springboot_api.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,9 +12,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="brand")
 @Builder
+@SequenceGenerator(
+        initialValue = 1,
+        name = "brand_sequence",
+        sequenceName = "brand_sequence",
+        allocationSize = 1
+)
 public class Brand {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "brand_sequence")
     private Integer id;
     private String name;
 }
