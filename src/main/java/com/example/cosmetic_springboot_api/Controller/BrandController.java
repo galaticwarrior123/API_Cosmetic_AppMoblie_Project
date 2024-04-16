@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/brands")
+@RequestMapping("/api/brand/")
 public class BrandController {
     private final IBrandService brandService;
 
