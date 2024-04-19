@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -27,11 +28,12 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> getAllProduct(){
         return ResponseEntity.ok(productService.getAllProduct());
     }
-    @GetMapping("/{categoryId}")
+
+    @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<ProductResponse>> getAllProductByCategory(@PathVariable int categoryId){
         return ResponseEntity.ok(productService.getAllProductByCategory(categoryId));
-
     }
+
 
     @PostMapping("")
     public ResponseEntity<ProductResponse> addProduct(@Valid @RequestBody ProductDto productDto, BindingResult bindingResult){
@@ -41,12 +43,12 @@ public class ProductController {
         return ResponseEntity.ok(productService.addProduct(productDto));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<ProductResponse> updateProduct(@PathVariable int id, @RequestBody ProductDto productDto){
         return ResponseEntity.ok(productService.updateProduct(id, productDto));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable int id){
         productService.deleteProduct(id);
         return ResponseEntity.ok().build();

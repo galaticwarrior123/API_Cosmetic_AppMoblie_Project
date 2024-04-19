@@ -39,7 +39,7 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public List<ProductResponse> getAllProductByCategory(int categoryId) {
-        return productRepository.findAllByCategoryId(categoryId)
+        return productRepository.findProductsByCategory_Id(categoryId)
                 .stream().map(product -> {
                     ProductResponse productResponse = modelMapper.map(product, ProductResponse.class);
                     productResponse.setImages(imageRepository.findAllURLByProduct(product.getId()));
@@ -50,7 +50,7 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public ProductResponse addProduct(ProductDto productDto) {
-        // Lưu sản phẩm thêm vào bảng product và ảnh của sản phẩm đã thêm vào bảng image
+
         Product product = new Product();
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
@@ -104,8 +104,7 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public void deleteProduct(int id) {
+        imageRepository.deleteAllByProductId(id);
         productRepository.deleteById(id);
-
-
     }
 }

@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
+
     @Query("SELECT p FROM Product p WHERE p.category.id = ?1")
-    List<Product> findAllByCategoryId(int categoryId);
+    List<Product> findProductsByCategory_Id(int categoryId);
 
 }
