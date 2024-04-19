@@ -30,9 +30,9 @@ public class Product{
     private Integer stock;
     private boolean status;
 
-    @OneToOne
+    @ManyToOne
     private Brand brand;
-    @OneToOne
+    @ManyToOne
     private Category category;
 
 }

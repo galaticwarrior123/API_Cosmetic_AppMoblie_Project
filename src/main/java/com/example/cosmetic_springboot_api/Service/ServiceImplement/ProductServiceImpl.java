@@ -1,6 +1,7 @@
 package com.example.cosmetic_springboot_api.Service.ServiceImplement;
 
 import com.example.cosmetic_springboot_api.Dto.ProductDto;
+import com.example.cosmetic_springboot_api.Entity.Brand;
 import com.example.cosmetic_springboot_api.Entity.Category;
 import com.example.cosmetic_springboot_api.Entity.Image;
 import com.example.cosmetic_springboot_api.Entity.Product;
@@ -53,8 +54,15 @@ public class ProductServiceImpl implements IProductService {
         Product product = new Product();
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
-        product.setBrand(brandRepository.findById(productDto.getBrandId()).orElse(null));
-        product.setCategory(categoryRepository.findById(productDto.getCategoryId()).orElse(null));
+        System.out.println("price"+productDto.getPrice());
+        System.out.println("brandID"+productDto.getBrandId());
+        Brand brand= new Brand();
+        brand.setId(productDto.getBrandId());
+        product.setBrand(brand);
+        System.out.println("cateID"+productDto.getCategoryId());
+        Category category = new Category();
+        category.setId(productDto.getCategoryId());
+        product.setCategory(category);
         product.setDescription(productDto.getDescription());
         product.setStatus(true);
         product.setStock(productDto.getStock());
@@ -97,5 +105,7 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public void deleteProduct(int id) {
         productRepository.deleteById(id);
+
+
     }
 }
