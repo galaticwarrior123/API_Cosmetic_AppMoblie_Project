@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,12 +55,9 @@ public class ProductServiceImpl implements IProductService {
         Product product = new Product();
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
-        System.out.println("price"+productDto.getPrice());
-        System.out.println("brandID"+productDto.getBrandId());
         Brand brand= new Brand();
         brand.setId(productDto.getBrandId());
         product.setBrand(brand);
-        System.out.println("cateID"+productDto.getCategoryId());
         Category category = new Category();
         category.setId(productDto.getCategoryId());
         product.setCategory(category);
@@ -67,12 +65,16 @@ public class ProductServiceImpl implements IProductService {
         product.setStatus(true);
         product.setStock(productDto.getStock());
         productRepository.save(product);
-        List<Image> images = productDto.getImages().stream().map(imageUrl -> {
-                    Image image = new Image();
-                    image.setUrl(imageUrl);
-                    image.setProduct(product);
-                    return image;
-                }).collect(Collectors.toList());
+
+        List<Image> images = new ArrayList<>();
+        if (productDto.getImages() != null) {
+            images = productDto.getImages().stream().map(imageUrl -> {
+                Image image = new Image();
+                image.setUrl(imageUrl);
+                image.setProduct(product);
+                return image;
+            }).collect(Collectors.toList());
+        }
         imageRepository.saveAll(images);
         ProductResponse productResponse = modelMapper.map(product, ProductResponse.class);
         productResponse.setImages(images.stream().map(Image::getUrl).collect(Collectors.toList()));
@@ -84,8 +86,12 @@ public class ProductServiceImpl implements IProductService {
         Product updateProduct = productRepository.findById(id).get();
         updateProduct.setName(productDto.getName());
         updateProduct.setPrice(productDto.getPrice());
-        updateProduct.setBrand(brandRepository.findById(productDto.getBrandId()).orElse(null));
-        updateProduct.setCategory(categoryRepository.findById(productDto.getCategoryId()).orElse(null));
+        Brand brand= new Brand();
+        brand.setId(productDto.getBrandId());
+        updateProduct.setBrand(brand);
+        Category category = new Category();
+        category.setId(productDto.getCategoryId());
+        updateProduct.setCategory(category);
         updateProduct.setDescription(productDto.getDescription());
         updateProduct.setStatus(true);
         updateProduct.setStock(productDto.getStock());
