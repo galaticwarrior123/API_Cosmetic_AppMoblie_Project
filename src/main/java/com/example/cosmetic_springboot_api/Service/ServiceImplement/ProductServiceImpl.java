@@ -96,12 +96,17 @@ public class ProductServiceImpl implements IProductService {
         updateProduct.setStatus(true);
         updateProduct.setStock(productDto.getStock());
         productRepository.save(updateProduct);
-        List<Image> images = productDto.getImages().stream().map(imageUrl -> {
-            Image image = new Image();
-            image.setUrl(imageUrl);
-            image.setProduct(updateProduct);
-            return image;
-        }).collect(Collectors.toList());
+        List<Image> oldImages = imageRepository.findAllByProductId(id);
+        imageRepository.deleteAll(oldImages);
+        List<Image> images = new ArrayList<>();
+        if (productDto.getImages() != null) {
+            images = productDto.getImages().stream().map(imageUrl -> {
+                Image image = new Image();
+                image.setUrl(imageUrl);
+                image.setProduct(updateProduct);
+                return image;
+            }).collect(Collectors.toList());
+        }
         imageRepository.saveAll(images);
         ProductResponse productResponse = modelMapper.map(updateProduct, ProductResponse.class);
         productResponse.setImages(images.stream().map(Image::getUrl).collect(Collectors.toList()));
