@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UsersServiceImpl implements IUsersService {
@@ -24,5 +26,13 @@ public class UsersServiceImpl implements IUsersService {
         modelMapper.map(usersDto, users);
         usersRepository.save(users);
         return modelMapper.map(users, UsersResponse.class);
+    }
+
+    @Override
+    public List<UsersResponse> getAllUsers() {
+        return usersRepository.findAll()
+                .stream().map(users -> modelMapper.map(users, UsersResponse.class))
+                .collect(java.util.stream.Collectors.toList());
+
     }
 }
