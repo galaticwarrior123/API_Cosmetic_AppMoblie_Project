@@ -15,6 +15,7 @@ public class UsersResponse {
     private String email;
     private String phone;
     private String address;
+    private boolean status;
     private String gender;
     private String image;
     private boolean isAdmin;

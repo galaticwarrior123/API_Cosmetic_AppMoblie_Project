@@ -11,5 +11,6 @@ public interface IProductService {
     List<ProductResponse> getAllProductByCategory(int categoryId);
     ProductResponse addProduct(ProductDto productDto);
     ProductResponse updateProduct(int id, ProductDto productDto);
+    ProductResponse updateStatusProduct(int id);
     void deleteProduct(int id);
 }

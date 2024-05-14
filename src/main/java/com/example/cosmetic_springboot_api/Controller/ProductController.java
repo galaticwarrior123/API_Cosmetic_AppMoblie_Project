@@ -48,6 +48,11 @@ public class ProductController {
         return ResponseEntity.ok(productService.updateProduct(id, productDto));
     }
 
+    @PutMapping("status/{id}")
+    public ResponseEntity<ProductResponse> updateStatusProduct(@PathVariable int id){
+        return ResponseEntity.ok(productService.updateStatusProduct(id));
+    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable int id){
         productService.deleteProduct(id);

@@ -115,6 +115,16 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    public ProductResponse updateStatusProduct(int id) {
+        Product updateProduct = productRepository.findById(id).get();
+        updateProduct.setStatus(!updateProduct.isStatus());
+        productRepository.save(updateProduct);
+        ProductResponse productResponse = modelMapper.map(updateProduct, ProductResponse.class);
+        productResponse.setImages(imageRepository.findAllURLByProduct(id));
+        return productResponse;
+    }
+
+    @Override
     public void deleteProduct(int id) {
         imageRepository.deleteAllByProductId(id);
         productRepository.deleteById(id);
