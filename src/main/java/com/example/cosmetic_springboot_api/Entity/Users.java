@@ -30,5 +30,6 @@ public class Users {
     private String address;
     private String gender;
     private String image;
+    private boolean status = true;
     private boolean isAdmin = false;
 }

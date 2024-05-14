@@ -2,7 +2,10 @@ package com.example.cosmetic_springboot_api.Service.ServiceImplement;
 
 import com.example.cosmetic_springboot_api.Dto.BrandDto;
 import com.example.cosmetic_springboot_api.Entity.Brand;
+import com.example.cosmetic_springboot_api.Entity.Product;
 import com.example.cosmetic_springboot_api.Repository.BrandRepository;
+import com.example.cosmetic_springboot_api.Repository.ImageRepository;
+import com.example.cosmetic_springboot_api.Repository.ProductRepository;
 import com.example.cosmetic_springboot_api.Response.BrandResponse;
 import com.example.cosmetic_springboot_api.Service.IBrandService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +20,8 @@ import java.util.stream.Collectors;
 public class BrandServiceImpl implements IBrandService {
 
     private final BrandRepository brandRepository ;
+    private final ProductRepository productRepository;
+    private final ImageRepository imageRepository;
     private final ModelMapper modelMapper;
     @Override
     public List<BrandResponse> getAllBrand() {
@@ -45,6 +50,11 @@ public class BrandServiceImpl implements IBrandService {
 
     @Override
     public void deleteBrand(int id) {
+        List<Product> products = productRepository.findProductsByBrand_Id(id);
+        for (Product product : products) {
+            imageRepository.deleteAllByProductId(product.getId());
+        }
+        productRepository.deleteProductByBrand_Id(id);
         brandRepository.deleteById(id);
     }
 }

@@ -35,4 +35,18 @@ public class UsersServiceImpl implements IUsersService {
                 .collect(java.util.stream.Collectors.toList());
 
     }
+
+    @Override
+    public UsersResponse getUserById(int id) {
+        Users users = usersRepository.findById(id).get();
+        return modelMapper.map(users, UsersResponse.class);
+    }
+
+    @Override
+    public UsersResponse updateStatusUser(int id) {
+        Users users = usersRepository.findById(id).get();
+        users.setStatus(!users.isStatus());
+        usersRepository.save(users);
+        return modelMapper.map(users, UsersResponse.class);
+    }
 }

@@ -2,7 +2,10 @@ package com.example.cosmetic_springboot_api.Service.ServiceImplement;
 
 import com.example.cosmetic_springboot_api.Dto.CategoryDto;
 import com.example.cosmetic_springboot_api.Entity.Category;
+import com.example.cosmetic_springboot_api.Entity.Product;
 import com.example.cosmetic_springboot_api.Repository.CategoryRepository;
+import com.example.cosmetic_springboot_api.Repository.ImageRepository;
+import com.example.cosmetic_springboot_api.Repository.ProductRepository;
 import com.example.cosmetic_springboot_api.Response.CategoryResponse;
 import com.example.cosmetic_springboot_api.Service.ICategoryService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +19,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements ICategoryService {
     private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
+    private final ImageRepository imageRepository;
     private final ModelMapper modelMapper;
     @Override
     public List<CategoryResponse> getAllCategory() {
@@ -42,6 +47,11 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public void deleteCategory(int id) {
+        List<Product> products = productRepository.findProductsByCategory_Id(id);
+        for (Product product : products) {
+            imageRepository.deleteAllByProductId(product.getId());
+        }
+        productRepository.deleteProductByCategory_Id(id);
         categoryRepository.deleteById(id);
     }
 }

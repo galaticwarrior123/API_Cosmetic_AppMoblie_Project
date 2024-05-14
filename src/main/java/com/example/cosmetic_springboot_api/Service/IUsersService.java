@@ -10,4 +10,8 @@ public interface IUsersService {
     UsersResponse registerUser(UsersDto usersDto);
 
     List<UsersResponse> getAllUsers();
+
+    UsersResponse getUserById(int id);
+
+    UsersResponse updateStatusUser(int id);
 }

@@ -107,7 +107,8 @@ public class ProductServiceImpl implements IProductService {
                 return image;
             }).collect(Collectors.toList());
         }
-        imageRepository.saveAll(images);
+        System.out.println(images.size());
+        imageRepository.saveAll(images).stream().toList();
         ProductResponse productResponse = modelMapper.map(updateProduct, ProductResponse.class);
         productResponse.setImages(images.stream().map(Image::getUrl).collect(Collectors.toList()));
         return productResponse;

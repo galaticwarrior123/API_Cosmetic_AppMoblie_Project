@@ -28,9 +28,17 @@ public class UsersController {
         return ResponseEntity.ok(usersService.registerUser(usersDto));
     }
 
-
     @GetMapping("/all")
     public ResponseEntity<List<UsersResponse>> getAllUsers(){
         return ResponseEntity.ok(usersService.getAllUsers());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<UsersResponse> getUserById(@PathVariable int id){
+        return ResponseEntity.ok(usersService.getUserById(id));
+    }
+
+    @PutMapping("/status/{id}")
+    public ResponseEntity<UsersResponse> updateStatus(@PathVariable int id){
+        return ResponseEntity.ok(usersService.updateStatusUser(id));
     }
 }

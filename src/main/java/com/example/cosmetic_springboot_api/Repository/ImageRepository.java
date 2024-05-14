@@ -18,5 +18,9 @@ public interface ImageRepository extends JpaRepository<Image, Integer> {
     @Query("delete from Image i where i.product.id = ?1")
     void deleteAllByProductId(int id);
 
+
+
     List<Image> findAllByProductId(int productId);
+
+
 }
