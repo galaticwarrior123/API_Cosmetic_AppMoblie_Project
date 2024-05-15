@@ -14,4 +14,6 @@ public interface IUsersService {
     UsersResponse getUserById(int id);
 
     UsersResponse updateStatusUser(int id);
+
+    UsersResponse updateUser(int id);
 }

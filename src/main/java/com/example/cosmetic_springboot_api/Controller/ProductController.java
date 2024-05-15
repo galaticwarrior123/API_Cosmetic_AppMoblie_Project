@@ -34,6 +34,10 @@ public class ProductController {
         return ResponseEntity.ok(productService.getAllProductByCategory(categoryId));
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable int id){
+        return ResponseEntity.ok(productService.getProductById(id));
+    }
 
     @PostMapping("")
     public ResponseEntity<ProductResponse> addProduct(@Valid @RequestBody ProductDto productDto, BindingResult bindingResult){

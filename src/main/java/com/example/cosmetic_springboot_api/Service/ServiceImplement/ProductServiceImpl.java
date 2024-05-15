@@ -129,4 +129,12 @@ public class ProductServiceImpl implements IProductService {
         imageRepository.deleteAllByProductId(id);
         productRepository.deleteById(id);
     }
+
+    @Override
+    public ProductResponse getProductById(int id) {
+        Product product = productRepository.findById(id).get();
+        ProductResponse productResponse = modelMapper.map(product, ProductResponse.class);
+        productResponse.setImages(imageRepository.findAllURLByProduct(id));
+        return productResponse;
+    }
 }
