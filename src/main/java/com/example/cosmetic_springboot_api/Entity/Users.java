@@ -39,6 +39,10 @@ public class Users implements UserDetails {
     private boolean status = true;
     private boolean isAdmin=false;
 
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private List<Cart> cart;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();

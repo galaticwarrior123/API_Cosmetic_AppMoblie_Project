@@ -9,6 +9,7 @@ import com.example.cosmetic_springboot_api.Service.IProductService;
 import com.example.cosmetic_springboot_api.Service.IUsersService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsersController {
     private final IUsersService usersService;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/all")
     public ResponseEntity<List<UsersResponse>> getAllUsers(){

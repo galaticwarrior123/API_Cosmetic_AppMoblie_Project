@@ -39,7 +39,6 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public CategoryResponse addCategory(CategoryDto categoryDto) {
-        System.out.println(categoryDto);
         Category category = new Category();
         modelMapper.map(categoryDto, category);
         categoryRepository.save(category);

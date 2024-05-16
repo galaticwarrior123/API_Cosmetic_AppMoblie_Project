@@ -4,8 +4,11 @@ package com.example.cosmetic_springboot_api.Service.ServiceImplement;
 import com.example.cosmetic_springboot_api.Component.JwtTokenUtil;
 import com.example.cosmetic_springboot_api.Dto.LoginUserDto;
 import com.example.cosmetic_springboot_api.Dto.UsersDto;
+import com.example.cosmetic_springboot_api.Entity.Cart;
 import com.example.cosmetic_springboot_api.Entity.Users;
+import com.example.cosmetic_springboot_api.Repository.CartRepository;
 import com.example.cosmetic_springboot_api.Repository.UsersRepository;
+import com.example.cosmetic_springboot_api.Response.CartResponse;
 import com.example.cosmetic_springboot_api.Response.UsersResponse;
 import com.example.cosmetic_springboot_api.Service.IUsersService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +25,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UsersServiceImpl implements IUsersService {
     private final UsersRepository usersRepository;
+    private final CartRepository cartRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder bCryptPasswordEncoder;
     private final JwtTokenUtil jwtTokenUtil;
@@ -35,7 +39,10 @@ public class UsersServiceImpl implements IUsersService {
         Users users = modelMapper.map(usersDto, Users.class);
         users.setUserName(usersDto.getUsername());
         users.setPassword(bCryptPasswordEncoder.encode(usersDto.getPassword()));
+        Cart cart = new Cart();
+        cart.setUsers(users);
         usersRepository.save(users);
+        cartRepository.save(cart);
         return modelMapper.map(users, UsersResponse.class);
     }
 

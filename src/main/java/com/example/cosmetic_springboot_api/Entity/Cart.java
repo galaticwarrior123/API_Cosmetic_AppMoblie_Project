@@ -20,5 +20,8 @@ public class Cart {
     private Integer id;
     private String name;
     private Integer price;
+    private boolean status=false;
+    @ManyToOne
+    private Users users;
 }
 
