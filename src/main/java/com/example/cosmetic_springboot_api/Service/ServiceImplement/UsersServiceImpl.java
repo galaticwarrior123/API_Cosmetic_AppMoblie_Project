@@ -3,12 +3,12 @@ package com.example.cosmetic_springboot_api.Service.ServiceImplement;
 
 import com.example.cosmetic_springboot_api.Component.JwtTokenUtil;
 import com.example.cosmetic_springboot_api.Dto.LoginUserDto;
+import com.example.cosmetic_springboot_api.Dto.UpdateUserDto;
 import com.example.cosmetic_springboot_api.Dto.UsersDto;
 import com.example.cosmetic_springboot_api.Entity.Cart;
 import com.example.cosmetic_springboot_api.Entity.Users;
 import com.example.cosmetic_springboot_api.Repository.CartRepository;
 import com.example.cosmetic_springboot_api.Repository.UsersRepository;
-import com.example.cosmetic_springboot_api.Response.CartResponse;
 import com.example.cosmetic_springboot_api.Response.UserLoginResponse;
 import com.example.cosmetic_springboot_api.Response.UsersResponse;
 import com.example.cosmetic_springboot_api.Service.IUsersService;
@@ -89,7 +89,7 @@ public class UsersServiceImpl implements IUsersService {
     }
 
     @Override
-    public UsersResponse updateUser(int id) {
+    public UsersResponse updateUser(int id, UpdateUserDto updateusersDto) {
         Users users = usersRepository.findById(id).get();
         usersRepository.save(users);
         return modelMapper.map(users, UsersResponse.class);

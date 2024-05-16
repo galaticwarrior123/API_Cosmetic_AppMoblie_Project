@@ -1,8 +1,8 @@
 package com.example.cosmetic_springboot_api.Service;
 
 import com.example.cosmetic_springboot_api.Dto.LoginUserDto;
+import com.example.cosmetic_springboot_api.Dto.UpdateUserDto;
 import com.example.cosmetic_springboot_api.Dto.UsersDto;
-import com.example.cosmetic_springboot_api.Entity.Users;
 import com.example.cosmetic_springboot_api.Response.UserLoginResponse;
 import com.example.cosmetic_springboot_api.Response.UsersResponse;
 
@@ -19,5 +19,5 @@ public interface IUsersService {
 
     UsersResponse updateStatusUser(int id);
 
-    UsersResponse updateUser(int id);
+    UsersResponse updateUser(int id, UpdateUserDto updateusersDto);
 }

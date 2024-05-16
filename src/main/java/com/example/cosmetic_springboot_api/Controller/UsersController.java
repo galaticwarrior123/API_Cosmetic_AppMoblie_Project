@@ -1,6 +1,7 @@
 package com.example.cosmetic_springboot_api.Controller;
 
 import com.example.cosmetic_springboot_api.Dto.ProductDto;
+import com.example.cosmetic_springboot_api.Dto.UpdateUserDto;
 import com.example.cosmetic_springboot_api.Dto.UsersDto;
 import com.example.cosmetic_springboot_api.Entity.Users;
 import com.example.cosmetic_springboot_api.Response.ProductResponse;
@@ -38,7 +39,7 @@ public class UsersController {
     }
 
     @PutMapping("/update/{id}")
-        public ResponseEntity<UsersResponse> updateUser(@PathVariable int id, @RequestBody UsersDto usersDto){
-        return ResponseEntity.ok(usersService.updateUser(id));
+        public ResponseEntity<UsersResponse> updateUser(@PathVariable int id, @RequestBody UpdateUserDto updateusersDto){
+        return ResponseEntity.ok(usersService.updateUser(id,updateusersDto));
     }
 }
