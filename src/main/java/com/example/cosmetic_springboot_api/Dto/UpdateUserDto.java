@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UpdateUserDto {
     private String userName;
-    private String password;
     private String phone;
     private String address;
     private String image;

@@ -91,6 +91,9 @@ public class UsersServiceImpl implements IUsersService {
     @Override
     public UsersResponse updateUser(int id, UpdateUserDto updateusersDto) {
         Users users = usersRepository.findById(id).get();
+        users.setUserName(updateusersDto.getUserName());
+        users.setPhone(updateusersDto.getPhone());
+        users.setAddress(updateusersDto.getAddress());
         usersRepository.save(users);
         return modelMapper.map(users, UsersResponse.class);
     }
