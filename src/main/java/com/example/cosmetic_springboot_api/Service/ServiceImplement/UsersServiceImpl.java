@@ -9,6 +9,7 @@ import com.example.cosmetic_springboot_api.Entity.Users;
 import com.example.cosmetic_springboot_api.Repository.CartRepository;
 import com.example.cosmetic_springboot_api.Repository.UsersRepository;
 import com.example.cosmetic_springboot_api.Response.CartResponse;
+import com.example.cosmetic_springboot_api.Response.UserLoginResponse;
 import com.example.cosmetic_springboot_api.Response.UsersResponse;
 import com.example.cosmetic_springboot_api.Service.IUsersService;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +48,7 @@ public class UsersServiceImpl implements IUsersService {
     }
 
     @Override
-    public String loginUser(LoginUserDto loginUserDto) {
+    public UserLoginResponse loginUser(LoginUserDto loginUserDto) {
         Optional<Users> users = usersRepository.findByEmail(loginUserDto.getEmail());
         if(users.isEmpty()){
             return null;
@@ -60,7 +61,9 @@ public class UsersServiceImpl implements IUsersService {
             return null;
         }
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUserDto.getEmail(), loginUserDto.getPassword(), user.getAuthorities()));
-        return jwtTokenUtil.generateToken(user);
+        String token = jwtTokenUtil.generateToken(user);
+        user.setToken(token);
+        return new UserLoginResponse(modelMapper.map(user, UsersResponse.class), token);
     }
 
     @Override

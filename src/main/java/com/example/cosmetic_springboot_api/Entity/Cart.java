@@ -23,5 +23,8 @@ public class Cart {
     private boolean status=false;
     @ManyToOne
     private Users users;
+
+    @ManyToOne
+    private Order order;
 }
 

@@ -27,7 +27,7 @@ public class AuthController {
         if(bindingResult.hasErrors()){
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(new UserLoginResponse(usersService.loginUser(loginUserDto)));
+        return ResponseEntity.ok(usersService.loginUser(loginUserDto));
     }
 
     @PostMapping("/register")

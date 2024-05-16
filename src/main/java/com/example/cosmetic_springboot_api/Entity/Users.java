@@ -42,6 +42,9 @@ public class Users implements UserDetails {
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Cart> cart;
 
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private List<Order> order;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
