@@ -16,6 +16,7 @@ public class UsersResponse {
     private String phone;
     private String address;
     private boolean status;
+    private String token;
     private String gender;
     private String image;
     private boolean isAdmin;

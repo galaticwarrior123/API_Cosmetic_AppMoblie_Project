@@ -1,14 +1,9 @@
 package com.example.cosmetic_springboot_api.Service.ServiceImplement;
 
+import com.example.cosmetic_springboot_api.Component.Extractor;
 import com.example.cosmetic_springboot_api.Dto.ProductDto;
-import com.example.cosmetic_springboot_api.Entity.Brand;
-import com.example.cosmetic_springboot_api.Entity.Category;
-import com.example.cosmetic_springboot_api.Entity.Image;
-import com.example.cosmetic_springboot_api.Entity.Product;
-import com.example.cosmetic_springboot_api.Repository.BrandRepository;
-import com.example.cosmetic_springboot_api.Repository.CategoryRepository;
-import com.example.cosmetic_springboot_api.Repository.ImageRepository;
-import com.example.cosmetic_springboot_api.Repository.ProductRepository;
+import com.example.cosmetic_springboot_api.Entity.*;
+import com.example.cosmetic_springboot_api.Repository.*;
 import com.example.cosmetic_springboot_api.Response.ProductResponse;
 import com.example.cosmetic_springboot_api.Service.IProductService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +20,8 @@ public class ProductServiceImpl implements IProductService {
     private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
     private final ImageRepository imageRepository;
+    private final UsersRepository usersRepository;
+    private final Extractor extractor;
     private final CategoryRepository categoryRepository;
     private final BrandRepository brandRepository;
     @Override
@@ -51,7 +48,6 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public ProductResponse addProduct(ProductDto productDto) {
-
         Product product = new Product();
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());

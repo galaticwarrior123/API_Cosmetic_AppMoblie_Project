@@ -20,13 +20,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsersController {
     private final IUsersService usersService;
-    @PostMapping("")
-    public ResponseEntity<UsersResponse> addUsers(@Valid @RequestBody UsersDto usersDto, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(usersService.registerUser(usersDto));
-    }
 
     @GetMapping("/all")
     public ResponseEntity<List<UsersResponse>> getAllUsers(){
