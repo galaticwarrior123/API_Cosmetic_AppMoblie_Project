@@ -32,11 +32,11 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.GET,
                                 "/api/product/**").permitAll()
                         .requestMatchers(HttpMethod.GET,
-                                "/api/users/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,
                                 "/api/category/**").permitAll()
                         .requestMatchers(HttpMethod.GET,
                                 "/api/brand/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,
+                                "/api/users/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.GET,
                                 "/api/cart/**").hasAuthority("ROLE_USER")
                         .requestMatchers(HttpMethod.POST,

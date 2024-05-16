@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderResponse {
     private int id;
+    private CartResponse cart;
     private boolean status;
-    
+
 }
