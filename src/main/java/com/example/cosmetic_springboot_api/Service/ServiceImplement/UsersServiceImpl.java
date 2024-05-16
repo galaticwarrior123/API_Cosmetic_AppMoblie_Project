@@ -77,4 +77,11 @@ public class UsersServiceImpl implements IUsersService {
         usersRepository.save(users);
         return modelMapper.map(users, UsersResponse.class);
     }
+
+    @Override
+    public UsersResponse updateUser(int id) {
+        Users users = usersRepository.findById(id).get();
+        usersRepository.save(users);
+        return modelMapper.map(users, UsersResponse.class);
+    }
 }

@@ -13,4 +13,6 @@ public interface IProductService {
     ProductResponse updateProduct(int id, ProductDto productDto);
     ProductResponse updateStatusProduct(int id);
     void deleteProduct(int id);
+
+    ProductResponse getProductById(int id);
 }
