@@ -64,4 +64,13 @@ public class CartProductServiceImpl implements ICartProductService {
         List<Cart_product> cartProducts = cartProductRepository.findAllByCart(cart);
         return cartProducts.stream().map(cartProduct -> modelMapper.map(cartProduct, CartProductResponse.class)).toList();
     }
+
+    @Override
+    public CartProductResponse getCartProductById(int cartProductId) {
+        Cart_product cartProduct = cartProductRepository.findById(cartProductId).orElse(null);
+        if (cartProduct == null) {
+            return null;
+        }
+        return modelMapper.map(cartProduct, CartProductResponse.class);
+    }
 }

@@ -14,4 +14,6 @@ public interface ICartProductService {
     Cart_product updateCartProduct(CartProductDto cartProductDto, int cartProductId);
 
     List<CartProductResponse> getAllCartProductByCartId(int cartId);
+
+    CartProductResponse getCartProductById(int cartProductId);
 }

@@ -25,6 +25,11 @@ public class CartProductController {
         return ResponseEntity.ok(cartProductService.getAllCartProductByCartId(cartId));
     }
 
+    @GetMapping("/get/{cartProductId}")
+    public ResponseEntity<CartProductResponse> getCartProductById(@PathVariable int cartProductId){
+        return ResponseEntity.ok(cartProductService.getCartProductById(cartProductId));
+    }
+
     @PostMapping("/add")
     public ResponseEntity<CartProductResponse> addCartProduct(@Valid @RequestBody CartProductDto cartProductDto){
         return ResponseEntity.ok(modelMapper.map(cartProductService.addCartProduct(cartProductDto), CartProductResponse.class));
