@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CartProductServiceImpl implements ICartProductService {
@@ -51,5 +53,15 @@ public class CartProductServiceImpl implements ICartProductService {
         cartProduct.setQuantity(cartProductDt.getQuantity());
         cartProductRepository.save(cartProduct);
         return cartProduct;
+    }
+
+    @Override
+    public List<CartProductResponse> getAllCartProductByCartId(int cartId) {
+        Cart cart = cartRepository.findById(cartId).orElse(null);
+        if (cart == null) {
+            return null;
+        }
+        List<Cart_product> cartProducts = cartProductRepository.findAllByCart(cart);
+        return cartProducts.stream().map(cartProduct -> modelMapper.map(cartProduct, CartProductResponse.class)).toList();
     }
 }
