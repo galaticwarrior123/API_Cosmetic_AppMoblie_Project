@@ -28,6 +28,9 @@ public class Order {
     private Integer id;
     private LocalDateTime orderDate;
     private LocalDateTime deliveryDate;
+    private String address;
+    private String phone;
+    private Long total;
     private boolean status=false;
 
     @ManyToOne

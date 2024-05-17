@@ -23,7 +23,7 @@ public class Cart_product {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_product_sequence")
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Product product;
 
     private Integer quantity;

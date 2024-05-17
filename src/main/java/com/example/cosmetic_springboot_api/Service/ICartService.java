@@ -12,4 +12,6 @@ public interface ICartService {
 
     CartResponse updateCart(int cartId,CartDto cartDto);
 
+    CartResponse getCartById(int cartId);
+
 }

@@ -1,5 +1,6 @@
 package com.example.cosmetic_springboot_api.Service.ServiceImplement;
 
+import com.example.cosmetic_springboot_api.Dto.OrderDto;
 import com.example.cosmetic_springboot_api.Entity.*;
 import com.example.cosmetic_springboot_api.Repository.*;
 import com.example.cosmetic_springboot_api.Response.OrderResponse;
@@ -8,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -21,20 +24,29 @@ public class OrderServiceImpl implements IOrderService {
     private final ModelMapper modelMapper;
 
     @Override
-    public OrderResponse createOrder(Cart cart) {
+    public OrderResponse createOrder(OrderDto orderDto) {
+        Cart cart = cartRepository.findById(orderDto.getCart().getId()).orElse(null);
+        if(cart == null){
+            return null;
+        }
         Order order = new Order();
         order.setCart(cart);
+        order.setAddress(orderDto.getAddress());
+        order.setOrderDate(LocalDateTime.now());
+        order.setPhone(orderDto.getPhone());
+        order.setTotal(orderDto.getTotal());
         orderRepository.save(order);
         return modelMapper.map(order, OrderResponse.class);
     }
 
     @Override
-    public OrderResponse updateOrder(int id, Cart cart) {
+    public OrderResponse updateOrder(int id, OrderDto orderDto) {
         Order order = orderRepository.findById(id).orElse(null);
         if(order == null){
             return null;
         }
-        order.setCart(cart);
+        order.setCart(orderDto.getCart());
+        order.setAddress(orderDto.getAddress());
         orderRepository.save(order);
         return modelMapper.map(order, OrderResponse.class);
     }
@@ -67,5 +79,14 @@ public class OrderServiceImpl implements IOrderService {
         }
         List<Order> orders = orderRepository.findAllByUsers(user);
         return orders.stream().map(order -> modelMapper.map(order, OrderResponse.class)).toList();
+    }
+
+    @Override
+    public OrderResponse getOrderById(int orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        if(order == null){
+            return null;
+        }
+        return modelMapper.map(order, OrderResponse.class);
     }
 }

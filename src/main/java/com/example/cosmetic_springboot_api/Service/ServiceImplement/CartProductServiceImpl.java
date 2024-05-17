@@ -25,7 +25,6 @@ public class CartProductServiceImpl implements ICartProductService {
 
     @Override
     public Cart_product addCartProduct(CartProductDto cartProductDto) {
-        System.out.println(cartProductDto.getQuantity());
         Cart cart = cartRepository.findById(cartProductDto.getCartId()).orElse(null);
         Product product = productRepository.findById(cartProductDto.getProductId()).orElse(null);
         if (cart == null || product == null) {

@@ -26,7 +26,7 @@ public class Product{
     private Integer id;
     private String name;
     private String description;
-    private Integer price;
+    private Long price;
     private Integer stock;
     private boolean status;
 

@@ -4,6 +4,7 @@ import com.example.cosmetic_springboot_api.Dto.LoginUserDto;
 import com.example.cosmetic_springboot_api.Dto.UsersDto;
 import com.example.cosmetic_springboot_api.Response.UserLoginResponse;
 import com.example.cosmetic_springboot_api.Response.UsersResponse;
+import com.example.cosmetic_springboot_api.Service.ICartService;
 import com.example.cosmetic_springboot_api.Service.IUsersService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthController {
     private final IUsersService usersService;
+    private final ICartService cartService;
     private final ModelMapper modelMapper;
     @PostMapping("/login")
     public ResponseEntity<UserLoginResponse> login(@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult){
-        System.out.println(loginUserDto);
         if(bindingResult.hasErrors()){
             return ResponseEntity.badRequest().build();
         }

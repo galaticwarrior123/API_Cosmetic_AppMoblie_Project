@@ -63,6 +63,14 @@ public class WebSecurityConfig {
                                 "/api/brand/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.DELETE,
                                 "/api/brand/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.POST,
+                                "/api/order/**").hasAuthority("ROLE_USER")
+                        .requestMatchers(HttpMethod.PUT,
+                                "/api/order/**").hasAuthority("ROLE_USER")
+                        .requestMatchers(HttpMethod.POST,
+                                "/api/payment/**").hasAuthority("ROLE_USER")
+                        .requestMatchers(HttpMethod.PUT,
+                                "/api/payment/**").hasAuthority("ROLE_USER")
                         .anyRequest().authenticated()
                 );
         return httpSecurity.build();

@@ -13,7 +13,7 @@ import java.util.List;
 public class ProductDto {
     private String name;
     private String description;
-    private int price;
+    private Long price;
     private int stock;
     private List<String> images;
     private int brandId;

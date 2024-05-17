@@ -12,9 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 public class CartResponse {
     private int id;
-    private List<ProductResponse> product;
-    private int quantity;
-    private float total;
+    private int totalQuantity;
+    private Long price;
     private boolean status;
-    private UsersResponse user;
+    private UsersResponse users;
 }

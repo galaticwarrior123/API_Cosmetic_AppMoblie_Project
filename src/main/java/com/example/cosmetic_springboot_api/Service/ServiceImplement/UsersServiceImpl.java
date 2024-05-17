@@ -40,9 +40,9 @@ public class UsersServiceImpl implements IUsersService {
         Users users = modelMapper.map(usersDto, Users.class);
         users.setUserName(usersDto.getUsername());
         users.setPassword(bCryptPasswordEncoder.encode(usersDto.getPassword()));
+        usersRepository.save(users);
         Cart cart = new Cart();
         cart.setUsers(users);
-        usersRepository.save(users);
         cartRepository.save(cart);
         return modelMapper.map(users, UsersResponse.class);
     }
@@ -62,7 +62,6 @@ public class UsersServiceImpl implements IUsersService {
         }
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUserDto.getEmail(), loginUserDto.getPassword(), user.getAuthorities()));
         String token = jwtTokenUtil.generateToken(user);
-        System.out.println(token);
         return new UserLoginResponse(modelMapper.map(user, UsersResponse.class), token);
     }
 
@@ -94,6 +93,7 @@ public class UsersServiceImpl implements IUsersService {
         users.setUserName(updateusersDto.getUserName());
         users.setPhone(updateusersDto.getPhone());
         users.setAddress(updateusersDto.getAddress());
+        users.setGender(updateusersDto.getGender());
         usersRepository.save(users);
         return modelMapper.map(users, UsersResponse.class);
     }

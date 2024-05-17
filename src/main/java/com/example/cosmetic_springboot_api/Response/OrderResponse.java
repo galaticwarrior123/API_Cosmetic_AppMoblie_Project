@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class OrderResponse {
     private int id;
     private CartResponse cart;
+    private String address;
     private boolean status;
 
 }

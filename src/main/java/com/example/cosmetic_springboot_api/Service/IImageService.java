@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IImageService {
     void deleteById (int id);
-    List<Image> findAllByProductId(int productId);
+    List<String> findAllByProductId(int productId);
 }

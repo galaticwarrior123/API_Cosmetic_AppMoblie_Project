@@ -19,14 +19,12 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_sequence")
     private Integer id;
     private String name;
-    private float price;
+    private Long price;
     private int totalQuantity;
     private boolean status=false;
     @ManyToOne
     private Users users;
 
-    @ManyToOne
-    private Order order;
 
 }
 

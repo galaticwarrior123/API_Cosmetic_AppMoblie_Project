@@ -45,4 +45,13 @@ public class CartServiceImpl implements ICartService {
         cartRepository.save(cart);
         return modelMapper.map(cart, CartResponse.class);
     }
+
+    @Override
+    public CartResponse getCartById(int cartId) {
+        Cart cart = cartRepository.findById(cartId).orElse(null);
+        if(cart == null){
+            return null;
+        }
+        return modelMapper.map(cart, CartResponse.class);
+    }
 }
