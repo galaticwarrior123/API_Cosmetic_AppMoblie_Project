@@ -1,5 +1,6 @@
 package com.example.cosmetic_springboot_api.Service.ServiceImplement;
 
+import com.example.cosmetic_springboot_api.Dto.CartDto;
 import com.example.cosmetic_springboot_api.Entity.Cart;
 import com.example.cosmetic_springboot_api.Entity.Users;
 import com.example.cosmetic_springboot_api.Repository.CartRepository;
@@ -32,5 +33,16 @@ public class CartServiceImpl implements ICartService {
         return cartRepository.findCartsByUsers_Id(user.getId())
                 .stream().map(cart -> modelMapper.map(cart, CartResponse.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public CartResponse updateCart(int cartId,CartDto cartDto) {
+        Cart cart = cartRepository.findById(cartId).orElse(null);
+        if(cart == null){
+            return null;
+        }
+        cart.setTotalQuantity(cartDto.getTotalQuantity());
+        cartRepository.save(cart);
+        return modelMapper.map(cart, CartResponse.class);
     }
 }

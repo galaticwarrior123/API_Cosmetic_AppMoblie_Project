@@ -62,7 +62,7 @@ public class UsersServiceImpl implements IUsersService {
         }
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUserDto.getEmail(), loginUserDto.getPassword(), user.getAuthorities()));
         String token = jwtTokenUtil.generateToken(user);
-        user.setToken(token);
+        System.out.println(token);
         return new UserLoginResponse(modelMapper.map(user, UsersResponse.class), token);
     }
 
@@ -96,5 +96,17 @@ public class UsersServiceImpl implements IUsersService {
         users.setAddress(updateusersDto.getAddress());
         usersRepository.save(users);
         return modelMapper.map(users, UsersResponse.class);
+    }
+
+    @Override
+    public void changePassword(int id, String oldPassword, String newPassword) {
+        Users users = usersRepository.findById(id).get();
+        if(bCryptPasswordEncoder.matches(oldPassword, users.getPassword())){
+            users.setPassword(bCryptPasswordEncoder.encode(newPassword));
+            usersRepository.save(users);
+        }
+        else{
+            throw new RuntimeException("Old password is incorrect");
+        }
     }
 }

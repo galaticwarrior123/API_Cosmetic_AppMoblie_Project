@@ -1,5 +1,6 @@
 package com.example.cosmetic_springboot_api.Controller;
 
+import com.example.cosmetic_springboot_api.Dto.CartDto;
 import com.example.cosmetic_springboot_api.Entity.Users;
 import com.example.cosmetic_springboot_api.Response.CartResponse;
 import com.example.cosmetic_springboot_api.Response.UsersResponse;
@@ -28,4 +29,10 @@ public class CartController {
         Users userEntity = modelMapper.map(user, Users.class);
         return ResponseEntity.ok(cartService.getAllCartByUserId(userEntity));
     }
+
+    @PutMapping("/update/{cartId}")
+    public ResponseEntity<CartResponse> updateCart(@PathVariable int cartId, @RequestBody CartDto cartDto){
+        return ResponseEntity.ok(cartService.updateCart(cartId, cartDto));
+    }
+
 }

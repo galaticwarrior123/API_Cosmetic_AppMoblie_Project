@@ -42,4 +42,10 @@ public class UsersController {
     public ResponseEntity<UsersResponse> updateUser(@PathVariable int id, @RequestBody UpdateUserDto updateusersDto){
         return ResponseEntity.ok(usersService.updateUser(id,updateusersDto));
     }
+
+    @PutMapping("/change-password/{id}")
+    public ResponseEntity<String> changePassword(@PathVariable int id, @RequestParam String oldPassword, @RequestParam String newPassword){
+        usersService.changePassword(id, oldPassword, newPassword);
+        return ResponseEntity.ok("Change password successfully");
+    }
 }

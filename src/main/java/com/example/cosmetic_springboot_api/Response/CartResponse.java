@@ -15,4 +15,6 @@ public class CartResponse {
     private List<ProductResponse> product;
     private int quantity;
     private float total;
+    private boolean status;
+    private UsersResponse user;
 }

@@ -13,6 +13,7 @@ public interface IUsersService {
 
     UserLoginResponse loginUser(LoginUserDto loginUserDto);
 
+
     List<UsersResponse> getAllUsers();
 
     UsersResponse getUserById(int id);
@@ -20,4 +21,6 @@ public interface IUsersService {
     UsersResponse updateStatusUser(int id);
 
     UsersResponse updateUser(int id, UpdateUserDto updateusersDto);
+
+    void changePassword(int id, String oldPassword, String newPassword);
 }
