@@ -15,5 +15,6 @@ public class CartResponse {
     private int totalQuantity;
     private Long price;
     private boolean status;
+    private boolean paid;
     private UsersResponse users;
 }

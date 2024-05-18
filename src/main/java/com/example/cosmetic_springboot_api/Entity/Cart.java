@@ -22,6 +22,7 @@ public class Cart {
     private Long price;
     private int totalQuantity;
     private boolean status=false;
+    private boolean paid=false;
     @ManyToOne
     private Users users;
 

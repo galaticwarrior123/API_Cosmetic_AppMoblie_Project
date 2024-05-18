@@ -15,12 +15,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/order")
 public class OrderController {
     private final IOrderService orderService;
     private final ModelMapper modelMapper;
+
+    @GetMapping("/all/{userId}")
+    public ResponseEntity<List<OrderResponse>> getAllOrderByUserId(@PathVariable int userId){
+        return ResponseEntity.ok(orderService.getAllOrderByUserId(userId));
+    }
 
     @PostMapping("/create")
     public ResponseEntity<OrderResponse> createOrder(@Valid @RequestBody OrderDto orderDto){
@@ -35,5 +42,10 @@ public class OrderController {
     @PutMapping("/update-status/{orderId}")
     public ResponseEntity<OrderResponse> updateStatusOrderById(@PathVariable int orderId){
         return ResponseEntity.ok(orderService.updateStatusOrderById(orderId));
+    }
+
+    @GetMapping("/{orderId}")
+    public ResponseEntity<OrderResponse> getOrderById(@PathVariable int orderId){
+        return ResponseEntity.ok(orderService.getOrderById(orderId));
     }
 }

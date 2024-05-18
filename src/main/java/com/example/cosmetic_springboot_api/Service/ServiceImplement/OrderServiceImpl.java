@@ -29,12 +29,15 @@ public class OrderServiceImpl implements IOrderService {
         if(cart == null){
             return null;
         }
+        cart.setPaid(true);
+        cartRepository.save(cart);
         Order order = new Order();
         order.setCart(cart);
         order.setAddress(orderDto.getAddress());
         order.setOrderDate(LocalDateTime.now());
         order.setPhone(orderDto.getPhone());
         order.setTotal(orderDto.getTotal());
+        order.setUsers(cart.getUsers());
         orderRepository.save(order);
         return modelMapper.map(order, OrderResponse.class);
     }
