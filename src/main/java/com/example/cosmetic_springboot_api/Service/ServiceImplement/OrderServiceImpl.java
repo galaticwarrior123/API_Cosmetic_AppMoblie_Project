@@ -48,7 +48,7 @@ public class OrderServiceImpl implements IOrderService {
         if(order == null){
             return null;
         }
-        order.setCart(orderDto.getCart());
+        order.setPhone(orderDto.getPhone());
         order.setAddress(orderDto.getAddress());
         orderRepository.save(order);
         return modelMapper.map(order, OrderResponse.class);
