@@ -92,4 +92,10 @@ public class OrderServiceImpl implements IOrderService {
         }
         return modelMapper.map(order, OrderResponse.class);
     }
+
+    @Override
+    public List<OrderResponse> getAllOrder() {
+        List<Order> orders = orderRepository.findAll();
+        return orders.stream().map(order -> modelMapper.map(order, OrderResponse.class)).toList();
+    }
 }

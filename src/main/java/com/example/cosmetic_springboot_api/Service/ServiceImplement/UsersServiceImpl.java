@@ -94,6 +94,7 @@ public class UsersServiceImpl implements IUsersService {
         users.setPhone(updateusersDto.getPhone());
         users.setAddress(updateusersDto.getAddress());
         users.setGender(updateusersDto.getGender());
+        users.setImage(updateusersDto.getImage());
         usersRepository.save(users);
         return modelMapper.map(users, UsersResponse.class);
     }

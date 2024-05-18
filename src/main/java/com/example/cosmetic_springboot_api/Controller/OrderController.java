@@ -48,4 +48,9 @@ public class OrderController {
     public ResponseEntity<OrderResponse> getOrderById(@PathVariable int orderId){
         return ResponseEntity.ok(orderService.getOrderById(orderId));
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<OrderResponse>> getAllOrder(){
+        return ResponseEntity.ok(orderService.getAllOrder());
+    }
 }
