@@ -14,8 +14,5 @@ public class OrderResponse {
     private CartResponse cart;
     private LocalDateTime orderDate;
     private boolean status;
-    private String address;
-    private String phone;
-    private Long total;
 
 }
