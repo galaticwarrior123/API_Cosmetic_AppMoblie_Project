@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CartResponse {
     private int id;
+    private String name;
     private int totalQuantity;
     private Long price;
     private boolean status;
