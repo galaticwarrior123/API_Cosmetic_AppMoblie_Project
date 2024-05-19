@@ -42,4 +42,9 @@ public class CartController {
         return ResponseEntity.ok(cartService.addCart(userEntity));
     }
 
+    @GetMapping("/{cartId}")
+    public ResponseEntity<CartResponse> getCartById(@PathVariable int cartId){
+        return ResponseEntity.ok(cartService.getCartById(cartId));
+    }
+
 }

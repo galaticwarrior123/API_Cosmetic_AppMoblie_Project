@@ -24,6 +24,7 @@ public class CartServiceImpl implements ICartService {
     public CartResponse addCart(Users user) {
         Cart cart = new Cart();
         cart.setUsers(user);
+        cart.setName(user.getUsername());
         cartRepository.save(cart);
         return modelMapper.map(cart, CartResponse.class);
     }
@@ -42,6 +43,7 @@ public class CartServiceImpl implements ICartService {
             return null;
         }
         cart.setTotalQuantity(cartDto.getTotalQuantity());
+        cart.setPrice(cartDto.getTotalPrice());
         cartRepository.save(cart);
         return modelMapper.map(cart, CartResponse.class);
     }

@@ -14,6 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class CartDto {
-    private float totalPrice;
+    private Long totalPrice;
     private int totalQuantity;
 }
