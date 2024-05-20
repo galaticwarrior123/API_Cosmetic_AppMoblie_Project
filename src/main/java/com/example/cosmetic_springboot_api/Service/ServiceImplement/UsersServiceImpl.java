@@ -38,7 +38,6 @@ public class UsersServiceImpl implements IUsersService {
             return null;
         }
         Users users = modelMapper.map(usersDto, Users.class);
-        users.setUserName(usersDto.getUsername());
         users.setPassword(bCryptPasswordEncoder.encode(usersDto.getPassword()));
         usersRepository.save(users);
         Cart cart = new Cart();

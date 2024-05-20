@@ -82,11 +82,9 @@ public class ProductServiceImpl implements IProductService {
         Product updateProduct = productRepository.findById(id).get();
         updateProduct.setName(productDto.getName());
         updateProduct.setPrice(productDto.getPrice());
-        Brand brand= new Brand();
-        brand.setId(productDto.getBrandId());
+        Brand brand = brandRepository.findById(productDto.getBrandId()).get();
         updateProduct.setBrand(brand);
-        Category category = new Category();
-        category.setId(productDto.getCategoryId());
+        Category category = categoryRepository.findById(productDto.getCategoryId()).get();
         updateProduct.setCategory(category);
         updateProduct.setDescription(productDto.getDescription());
         updateProduct.setStatus(true);
